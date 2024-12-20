@@ -8,6 +8,7 @@ describe("UserController", () => {
   const mockUserService: Partial<UserService> = {
     createUser: jest.fn(),
     getAllUsers: jest.fn(),
+    deleteUser: jest.fn(),
   };
 
   const userController = new UserController(mockUserService as UserService);
@@ -60,5 +61,28 @@ describe("UserController", () => {
     const mockRequest = makeMockRequest({});
     userController.getAllUsers(mockRequest, mockResponse);
     expect(mockResponse.state.status).toBe(200);
+  });
+
+  it("Verificar se a função deleteUser está sendo chamada", () => {
+    const mockResponse = makeMockResponse();
+    const mockRequest = {
+      body: {
+        name: "Nath",
+        email: "nath@test.com",
+      },
+    } as Request;
+    userController.deleteUser(mockRequest, mockResponse);
+    expect(mockResponse.state.status).toBe(200);
+  });
+
+  it("deleteUser: Verificar a resposta de erro caso o usuário não informe o email", () => {
+    const mockResponse = makeMockResponse();
+    const mockRequest = {
+      body: {
+        name: "Nath",
+      },
+    } as Request;
+    userController.deleteUser(mockRequest, mockResponse);
+    expect(mockResponse.state.status).toBe(400);
   });
 });
