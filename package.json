@@ -7,7 +7,9 @@
     "build": "rimraf ./build && tsc",
     "start": "node build/index.js",
     "dev": "ts-node-dev src/index.ts",
-    "test": "jest"
+    "test": "jest",
+    "typeorm": "node ./node_modules/typeorm/cli.js",
+    "migration:create": "npm run typeorm migration:create -n"
   },
   "keywords": [],
   "author": "",
@@ -21,6 +23,9 @@
     "typescript": "^4.8.2"
   },
   "dependencies": {
-    "express": "^4.18.1"
+    "express": "^4.18.1",
+    "reflect-metadata": "^0.2.2",
+    "sqlite3": "^5.1.7",
+    "typeorm": "^0.3.20"
   }
 }
