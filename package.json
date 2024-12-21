@@ -8,7 +8,9 @@
     "start": "node build/index.js",
     "dev": "ts-node-dev src/index.ts",
     "test": "jest",
-    "typeorm": "node ./node_modules/typeorm/cli.js",
+    "typeorm": "typeorm-ts-node-commonjs",
+    "migration:run": "npx typeorm-ts-node-commonjs migration:run -d src/database/index.ts",
+    "migration:revert": "npx typeorm-ts-node-commonjs migration:revert -d src/database/index.ts",
     "migration:create": "npm run typeorm migration:create -n"
   },
   "keywords": [],
