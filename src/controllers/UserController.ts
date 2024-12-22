@@ -23,25 +23,22 @@ export class UserController {
         .json({ message: "Bad request! Email obrigatório" });
     }
 
-    this.userService.createUser(user.name, user.email);
+    if (!user.password) {
+      return response
+        .status(400)
+        .json({ message: "Bad request! password obrigatório" });
+    }
+
+    this.userService.createUser(user.name, user.email, user.password);
     return response.status(201).json({ message: "Usuário criado" });
   };
 
   deleteUser = (request: Request, response: Response) => {
-    // TODO
-    const user = request.body;
-    if (!user.email) {
-      return response
-        .status(400)
-        .json({ message: "Bad request! Email obrigatório" });
-    }
-    this.userService.deleteUser(user.email);
-
     return response.status(200).json({ message: "Usuário deletado" });
   };
 
-  getAllUsers = (request: Request, response: Response) => {
-    const users = this.userService.getAllUsers();
+  getUser = (request: Request, response: Response) => {
+    const users = this.userService.getUser();
     return response.status(200).json(users);
   };
 }
