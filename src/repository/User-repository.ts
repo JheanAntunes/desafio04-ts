@@ -13,7 +13,7 @@ export class UserRepository {
 
   getUser = async (userId: string): Promise<User | null> => {
     return await this.manager.findOne(User, {
-      where: { user_id: userId },
+      where: { id_user: userId },
     });
   };
 }
