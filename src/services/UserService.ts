@@ -20,7 +20,10 @@ export class UserService {
     return this.UserRepositoy.createUser(user);
   };
 
-  getUser = () => {};
+  getUser = async (userId: string): Promise<User | null> => {
+    const user = await this.UserRepositoy.getUser(userId);
+    return user;
+  };
 
   getAuthenticatedUser = async (
     email: string,
