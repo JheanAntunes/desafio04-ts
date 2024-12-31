@@ -10,7 +10,7 @@ describe("UserRepository", () => {
     email: "jhean@gmail.com",
     name: "jhean",
     password: "123456",
-    user_id: "1",
+    id_user: "1",
   };
   beforeAll(async () => {
     managerMock = await getMockedEntityManager({
