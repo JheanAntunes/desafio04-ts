@@ -1,5 +1,6 @@
 import { AppDataSource } from "../database";
 import { User } from "../entities/User";
+import * as jwt from "jsonwebtoken";
 
 import { UserRepository } from "../repository/User-repository";
 
@@ -20,4 +21,33 @@ export class UserService {
   };
 
   getUser = () => {};
+
+  getAuthenticatedUser = async (
+    email: string,
+    password: string
+  ): Promise<User | null> => {
+    return this.UserRepositoy.getUserByEmailandPassword(email, password);
+  };
+
+  getToken = async (email: string, password: string): Promise<string> => {
+    const user = await this.getAuthenticatedUser(email, password);
+
+    if (!user) {
+      throw new Error("Usuário não encontrado");
+    }
+
+    const tokenData = {
+      name: user?.name,
+      email: user?.email,
+    };
+
+    const tokenKey = "secret";
+
+    const tokenOption = {
+      subject: user?.id_user,
+    };
+
+    const token = jwt.sign(tokenData, tokenKey, tokenOption);
+    return token;
+  };
 }
