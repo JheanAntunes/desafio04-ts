@@ -37,8 +37,9 @@ export class UserController {
     return response.status(200).json({ message: "Usuário deletado" });
   };
 
-  getUser = (request: Request, response: Response) => {
-    const users = this.userService.getUser();
-    return response.status(200).json(users);
+  getUser = async (request: Request, response: Response) => {
+    const id = request.params.id;
+    const user = await this.userService.getUser(id);
+    return response.status(200).json(user);
   };
 }
