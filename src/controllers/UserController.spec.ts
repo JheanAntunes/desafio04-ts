@@ -9,6 +9,7 @@ jest.mock("../services/UserService", () => {
     UserService: jest.fn().mockImplementation(() => {
       return {
         createUser: jest.fn(),
+        getUser: jest.fn(),
       };
     }),
   };
@@ -76,5 +77,16 @@ describe("UserController", () => {
     expect(mockResponse.state.json).toMatchObject({
       message: "Bad request! password obrigatório",
     });
+  });
+
+  it("Deve retornar o usuario com o userId informado", () => {
+    const mockRequest = makeMockRequest({
+      params: {
+        id: "1",
+      },
+    });
+    const mockResponse = makeMockResponse();
+    userController.getUser(mockRequest, mockResponse);
+    expect(mockResponse.state.status).toBe(200);
   });
 });
